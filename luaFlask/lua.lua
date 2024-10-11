@@ -1,6 +1,7 @@
 -- flaskServer.lua
 local component = require("component")
 local event = require("event")
+local filesystem = require("filesystem")
 local modem = component.modem
 
 local flaskServer = {
@@ -10,6 +11,7 @@ local flaskServer = {
     dnsServerAddress = "dns_server_address_here",  -- DNS server to register with
     dnsUpdatePort = 54,
     domain = nil,
+    htmldirectory = "/path/to/files"
 }
 
 -- Register a route (URL path) and associate it with a handler function
@@ -57,15 +59,14 @@ function flaskServer.run(domain, port)
 
     -- Main event loop
     while true do
-        local _, _, from, port, _, message = event.pull("modem_message")
+        local _, from, port, _, _, message = event.pull("modem_message")
         if port == flaskServer.port then
             -- Parse method and path from the message (e.g., "GET /home")
             local method, fullPath = message:match("^(%S+)%s(%S+)")
-            print(fullpath)
+            print(fullPath)
             if method and fullPath then
                 -- Separate path and query parameters
                 local path, queryString = fullPath:match("([^?]+)%??(.*)")
-                print(path)
                 local params = {}
                 for key, value in queryString:gmatch("([^&=]+)=([^&=]+)") do
                     params[key] = value
