@@ -10,9 +10,7 @@ local currentIndex = 0
 local DNS_PORT = 53
 local ServerPort = 80
 
--- local waitingDelay = 0.5
-
-local dnsServerAddress = "f968f015-a44e-440e-b4bd-70bb97f94b9e"
+local dnsServerAddress = "DNS_server_address_here"
 
 -- Create the main window
 local workspace, window, menu = system.addWindow(GUI.filledWindow(1, 1, 100, 30, 0x2D2D2D))
